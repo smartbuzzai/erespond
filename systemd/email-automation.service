@@ -1,0 +1,43 @@
+[Unit]
+Description=Email Automation System
+Documentation=https://github.com/your-org/email-automation-system
+After=network.target redis.service
+Wants=redis.service
+
+[Service]
+Type=exec
+User=email-automation
+Group=email-automation
+WorkingDirectory=/opt/email-automation
+Environment=PYTHONPATH=/opt/email-automation
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/email-automation/venv/bin/uvicorn server:app --host 0.0.0.0 --port 8000 --workers 1
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=30
+Restart=always
+RestartSec=10
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/email-automation/logs /opt/email-automation/data
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+
+# Resource limits
+LimitNOFILE=65536
+LimitNPROC=4096
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=email-automation
+
+[Install]
+WantedBy=multi-user.target
+
+
