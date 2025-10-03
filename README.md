@@ -1,4 +1,4 @@
-# Email Automation System
+# Email Automation System (eRespond)
 
 A production-ready, AI-powered email automation system that intelligently processes incoming emails, classifies urgency, generates responses, and routes to human agents when needed.
 
@@ -66,13 +66,13 @@ A production-ready, AI-powered email automation system that intelligently proces
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd email-automation-system
+   git clone https://github.com/smartbuzzai/erespond.git
+   cd erespond
    ```
 
 2. **Configure environment**
    ```bash
-   cp .env.template .env
+   cp env.template .env
    # Edit .env with your configuration
    ```
 
@@ -94,7 +94,7 @@ A production-ready, AI-powered email automation system that intelligently proces
 
 2. **Configure environment**
    ```bash
-   cp .env.template .env
+   cp env.template .env
    # Edit .env with your configuration
    ```
 
@@ -272,7 +272,7 @@ python -c "from imap_listener import IMAPListener; print('IMAP module loaded')"
 ### Project Structure
 
 ```
-email-automation-system/
+erespond/
 ├── server.py                 # FastAPI server
 ├── email_processor.py        # Main orchestrator
 ├── imap_listener.py         # Email monitoring
@@ -287,7 +287,6 @@ email-automation-system/
 ├── app.js                  # Frontend JavaScript
 ├── requirements.txt        # Python dependencies
 ├── Dockerfile             # Container configuration
-├── docker-compose.yml     # Multi-service setup
 ├── nginx.conf             # Reverse proxy config
 └── deploy.sh              # Production deployment
 ```
@@ -363,10 +362,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 **Made with ❤️ for efficient email management**
-
-
-
-
-
-
-
