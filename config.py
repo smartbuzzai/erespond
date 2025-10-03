@@ -4,7 +4,8 @@ Configuration management for Email Automation System
 
 import os
 from typing import Optional
-from pydantic import BaseSettings, Field, validator
+from pydantic import Field, field_validator
+from pydantic_settings import BaseSettings
 from pathlib import Path
 
 
@@ -56,30 +57,34 @@ class Config(BaseSettings):
     blocked_senders: Optional[list] = Field(None, description="List of blocked sender domains")
     require_approval_for_external: bool = Field(True, description="Require approval for external domain emails")
     
-    @validator('log_level')
+    @field_validator('log_level')
+    @classmethod
     def validate_log_level(cls, v):
         valid_levels = ['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL']
         if v.upper() not in valid_levels:
             raise ValueError(f'log_level must be one of {valid_levels}')
         return v.upper()
     
-    @validator('openai_model')
+    @field_validator('openai_model')
+    @classmethod
     def validate_openai_model(cls, v):
         valid_models = ['gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-3.5-turbo']
         if v not in valid_models:
             raise ValueError(f'openai_model must be one of {valid_models}')
         return v
     
-    @validator('urgency_threshold')
+    @field_validator('urgency_threshold')
+    @classmethod
     def validate_urgency_threshold(cls, v):
         if not 1 <= v <= 5:
             raise ValueError('urgency_threshold must be between 1 and 5')
         return v
     
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = False
+    model_config = {
+        "env_file": ".env",
+        "env_file_encoding": "utf-8",
+        "case_sensitive": False
+    }
 
 
 def load_config() -> Config:

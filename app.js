@@ -671,4 +671,3 @@ class EmailAutomationApp {
 document.addEventListener('DOMContentLoaded', () => {
     new EmailAutomationApp();
 });
-

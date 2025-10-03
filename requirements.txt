@@ -24,7 +24,8 @@ pydantic-settings==2.1.0
 redis==5.0.1
 
 # Security
-cryptography==41.0.8
+# Use a Python 3.13 compatible version of cryptography
+cryptography>=42.0.0,<47.0.0
 python-multipart==0.0.6
 
 # Logging and Monitoring
